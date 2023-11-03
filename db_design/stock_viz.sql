@@ -28,8 +28,6 @@ CREATE TABLE users (
     lastname TEXT NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
-    supplier_id INT,
-    category_id INT,
     PRIMARY KEY (id)
 );
 
