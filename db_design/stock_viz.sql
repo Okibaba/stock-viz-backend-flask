@@ -22,11 +22,12 @@ SET default_with_oids = false;
 --- CREATE tables
 ---
 
-
 CREATE TABLE users (
     id SERIAL,
-    name TEXT NOT NULL,
-    discontinued BOOLEAN NOT NULL,
+    firstname TEXT NOT NULL,
+    lastname TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
     supplier_id INT,
     category_id INT,
     PRIMARY KEY (id)
