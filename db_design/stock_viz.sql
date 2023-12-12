@@ -34,9 +34,9 @@ CREATE TABLE users (
 
 CREATE TABLE stocks (
     id SERIAL,
-    name TEXT UNIQUE NOT NULL,
-    description TEXT,
-    picture TEXT,
+    stockID TEXT UNIQUE NOT NULL,
+    symbol TEXT,
+    companyname TEXT,
     PRIMARY KEY (id)
 );
 
