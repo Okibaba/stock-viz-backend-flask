@@ -22,36 +22,21 @@ SET default_with_oids = false;
 --- CREATE tables
 ---
 
-CREATE TABLE users (
-    id SERIAL,
-    firstname TEXT NOT NULL,
-    lastname TEXT NOT NULL,
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    PRIMARY KEY (id)
-);
-
-
 CREATE TABLE stocks (
     id SERIAL,
-    stockID TEXT UNIQUE NOT NULL,
-    symbol TEXT,
-    companyname TEXT,
+    stock_id TEXT UNIQUE NOT NULL,
+    symbol TEXT UNIQUE NOT NULL,
+    company_name TEXT,
+    company_description TEXT,
     PRIMARY KEY (id)
-);
+    );
 
 
-CREATE TABLE prices(
-id SERIAL,
-name TEXT NOT NULL,
-PRIMARY KEY(id)
-);
-
-
-CREATE TABLE orders (
-id SERIAL,
-date DATE,
-customer_id INT NOT NULL,
-employee_id INT,
-PRIMARY KEY (id)
-);
+CREATE TABLE prices (
+    id SERIAL PRIMARY KEY,
+    time_stamp TIMESTAMP,
+    current_price NUMERIC,
+    opening_price NUMERIC, 
+    closing_price NUMERIC ,
+    price_id INT
+    );
