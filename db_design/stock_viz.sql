@@ -23,9 +23,8 @@ SET default_with_oids = false;
 ---
 
 CREATE TABLE stocks (
-    id SERIAL,
-    stock_id TEXT UNIQUE NOT NULL,
-    symbol TEXT UNIQUE NOT NULL,
+    id SERIAL,    
+    stock_symbol TEXT UNIQUE NOT NULL,
     company_name TEXT,
     company_description TEXT,
     PRIMARY KEY (id)
@@ -35,8 +34,5 @@ CREATE TABLE stocks (
 CREATE TABLE prices (
     id SERIAL PRIMARY KEY,
     time_stamp TIMESTAMP,
-    current_price NUMERIC,
-    opening_price NUMERIC, 
-    closing_price NUMERIC ,
-    price_id INT
+    current_price NUMERIC    
     );
