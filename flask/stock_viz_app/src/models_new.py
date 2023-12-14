@@ -49,6 +49,8 @@ class Price(db.Model):
         nullable=False
     )
     current_price = db.Column(db.String(280), nullable=False)
+    stocks_id = db.Column(db.Integer, db.ForeignKey(
+        'stocks.id'), nullable=False)
 
     def __init__(self, current_price: str, stock_symbol: str):
         self.current_price = current_price

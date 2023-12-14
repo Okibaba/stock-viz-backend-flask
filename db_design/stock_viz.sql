@@ -34,5 +34,12 @@ CREATE TABLE stocks (
 CREATE TABLE prices (
     id SERIAL PRIMARY KEY,
     time_stamp TIMESTAMP,
-    current_price NUMERIC    
+    current_price NUMERIC,
+    stocks_id INT NOT NULL   
     );
+
+--add foreign key constraints
+ALTER TABLE prices
+ADD CONSTRAINT fk_prices_stocks
+FOREIGN KEY (stocks_id ) 
+REFERENCES stocks (id);
