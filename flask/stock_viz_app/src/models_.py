@@ -4,32 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-# CREATE TABLE stocks (
-#     id SERIAL,
-#     stock_id TEXT UNIQUE NOT NULL,
-#     symbol TEXT UNIQUE NOT NULL,
-#     company_name TEXT,
-#     company_description TEXT,
-#     PRIMARY KEY (id)
-#     );
-
-# to do:
-# update types for table
-# create apis
-# create integrations with alembic
-# test api with insomnia
-# add html pages for displaying a few stocks and price on a table
-# verify post is working locally on table
-# verify delete is working on html table
-# create a docker image
-# run from the cloud
-
 class Stock(db.Model):
     __tablename__ = 'stocks'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    stock_symbol = db.Column(db.String(128), nullable=False)
-    company_name = db.Column(db.String(128), nullable=False)
-    company_description = db.Column(db.String(128), nullable=False)
+    stock_symbol = db.Column(db.String(128), unique=True, nullable=False)
+    company_name = db.Column(db.String(128), unique=True, nullable=False)
+    company_description = db.Column(db.String(128))
     prices = db.relationship('Price', backref='stock',
                              cascade="all, delete", lazy=True)
 
@@ -42,7 +22,8 @@ class Stock(db.Model):
         return {
             'id': self.id,
             'company_name': self.company_name,
-            'stock_symbol': self.stock_symbol
+            'stock_symbol': self.stock_symbol,
+            'company_description': self.company_description
 
         }
 
@@ -55,17 +36,18 @@ class Price(db.Model):
         default=datetime.datetime.utcnow,
         nullable=False
     )
-    current_price = db.Column(db.String(280), nullable=False)
+    current_price = db.Column(db.Numeric)
     stocks_id = db.Column(db.Integer, db.ForeignKey(
         'stocks.id'), nullable=False)
 
-    def __init__(self, current_price: str, stock_symbol: str):
+    def __init__(self, current_price: Decimal, stocks_id: int):
         self.current_price = current_price
         self.stock_symbol = stock_symbol
 
     def serialize(self):
         return {
-            'stock_symbol': self.id,
-            'current_price': self.content,
-            'time_stamp': self.time_stamp.isoformat(),
+            'id': self.id,
+            'time_stamp': self.time_stamp.isoformat() if self.time_stamp else None,
+            'current_price': float(self.current_price) if self.current_price is not None else None,
+            'stocks_id': self.stocks_id
         }
