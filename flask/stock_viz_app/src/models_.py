@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -37,17 +38,17 @@ class Price(db.Model):
         nullable=False
     )
     current_price = db.Column(db.Numeric)
-    stocks_id = db.Column(db.Integer, db.ForeignKey(
+    stock_id = db.Column(db.Integer, db.ForeignKey(
         'stocks.id'), nullable=False)
 
-    def __init__(self, current_price: Decimal, stocks_id: int):
+    def __init__(self, current_price: Decimal, stock_id: int):
         self.current_price = current_price
-        self.stock_symbol = stock_symbol
+        self.stock_id = stock_id
 
     def serialize(self):
         return {
             'id': self.id,
             'time_stamp': self.time_stamp.isoformat() if self.time_stamp else None,
-            'current_price': float(self.current_price) if self.current_price is not None else None,
-            'stocks_id': self.stocks_id
+            'current_price': str(self.current_price) if self.current_price is not None else None,
+            'stock_id': self.stock_id
         }
