@@ -10,7 +10,7 @@ def index():
     prices = Price.query.all()  # ORM performs SELECT query
     result = []
     for price in prices:
-        # build list of Tweets as dictionaries
+        # build list of prices as dictionaries
         result.append(price.serialize())
     return jsonify(result)  # return JSON response
 

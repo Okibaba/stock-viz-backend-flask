@@ -1,74 +1,54 @@
 import datetime
+from decimal import Decimal
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
-class User(db.Model):
-    __tablename__ = 'users'
+class Stock(db.Model):
+    __tablename__ = 'stocks'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(128), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)
-    tweets = db.relationship('Tweet', backref='user', cascade="all,delete")
+    stock_symbol = db.Column(db.String(128), unique=True, nullable=False)
+    company_name = db.Column(db.String(128), unique=True, nullable=False)
+    company_description = db.Column(db.String(128), default='')
+    prices = db.relationship('Price', backref='stock',
+                             cascade="all, delete", lazy=True)
 
-    def __init__(self, username: str, password: str):
-        self.username = username
-        self.password = password
+    def __init__(self, stock_symbol: str, company_name: str, company_description: str):
+        self.stock_symbol = stock_symbol
+        self.company_name = company_name
+        self.company_description = company_description
 
     def serialize(self):
         return {
             'id': self.id,
-            'username': self.username
+            'company_name': self.company_name,
+            'stock_symbol': self.stock_symbol,
+            'company_description': self.company_description
+
         }
 
 
-likes_table = db.Table(
-    'likes',
-    db.Column(
-        'user_id', db.Integer,
-        db.ForeignKey('users.id'),
-        primary_key=True
-    ),
-
-    db.Column(
-        'tweet_id', db.Integer,
-        db.ForeignKey('tweets.id'),
-        primary_key=True
-    ),
-
-    db.Column(
-        'created_at', db.DateTime,
-        default=datetime.datetime.utcnow,
-        nullable=False
-    )
-
-)
-
-
-class Tweet(db.Model):
-    __tablename__ = 'tweets'
+class Price(db.Model):
+    __tablename__ = 'prices'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.String(280), nullable=False)
-    created_at = db.Column(
+    time_stamp = db.Column(
         db.DateTime,
         default=datetime.datetime.utcnow,
         nullable=False
     )
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    liking_users = db.relationship(
-        'User', secondary=likes_table,
-        lazy='subquery',
-        backref=db.backref('liked_tweets', lazy=True)
-    )
+    current_price = db.Column(db.Numeric)
+    stock_id = db.Column(db.Integer, db.ForeignKey(
+        'stocks.id'), nullable=False)
 
-    def __init__(self, content: str, user_id: int):
-        self.content = content
-        self.user_id = user_id
+    def __init__(self, current_price: Decimal, stock_id: int):
+        self.current_price = current_price
+        self.stock_id = stock_id
 
     def serialize(self):
         return {
             'id': self.id,
-            'content': self.content,
-            'created_at': self.created_at.isoformat(),
-            'user_id': self.user_id
+            'time_stamp': self.time_stamp.isoformat() if self.time_stamp else None,
+            'current_price': str(self.current_price) if self.current_price is not None else None,
+            'stock_id': self.stock_id
         }
