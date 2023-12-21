@@ -15,7 +15,10 @@ cat stock_viz.sql | docker exec -i pg_container psql
 # add html pages for displaying a few stocks and price on a table
 # verify post is working locally on table (done)
 # verify delete is working on html table 
-# create a docker image
-# run app using docker image
+# create a docker image for just flask(done)
+# run flask app using docker image(done)
+# upgrade to using .env for db information
+# create a docker compose for database , network and webapp borrow example from workshop
+# re-run app with docker compose
 # deploy docker app to the cloud
 # run cloud version of app
