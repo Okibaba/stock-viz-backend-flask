@@ -1,5 +1,5 @@
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from ..models import Stock, db
 
 
@@ -9,11 +9,12 @@ bp = Blueprint('stocks', __name__, url_prefix='/stocks')
 @bp.route('', methods=['GET'])  # decorator takes path and list of HTTP verbs
 def index():
     stocks = Stock.query.all()  # ORM performs SELECT query
-    result = []
-    for stock in stocks:
-        # build list of stocks as dictionaries
-        result.append(stock.serialize())
-    return jsonify(result)  # return JSON response
+    return render_template('stock_table.html', stocks=stocks)
+    # result = []
+    # for stock in stocks:
+    #     # build list of stocks as dictionaries
+    #     result.append(stock.serialize())
+    # return jsonify(result)  # return JSON response
 
 
 @bp.route('/<int:id>', methods=['GET'])
