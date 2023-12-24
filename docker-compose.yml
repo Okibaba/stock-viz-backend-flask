@@ -13,6 +13,8 @@ services:
       - DB_PORT=5432
     depends_on:
       - postgres_db
+    volumes:
+      - ./flask/stock_viz_app:/app
 
   postgres_db:
     container_name: postgres_container_flask
@@ -26,7 +28,7 @@ services:
       - "5432:5432"
     volumes:
       - ./data:/data
-      - ./data/db_design/stock_viz.sql:/docker-entrypoint-initdb.d/stock_viz.sql
+    # - ./data/db_design/stock_viz.sql:/docker-entrypoint-initdb.d/stock_viz.sql # don't want sql initialized.
 
   pgadmin:
     container_name: pgadmin_container_flask
