@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h2>Company Stock Information</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Stock ID</th>
+            <th>Company Name</th>
+            <th>Stock Symbol</th>
+            <th>Company Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.id }}</td>
+            <td>{{ stock.company_name }}</td>
+            <td>{{ stock.stock_symbol }}</td>
+            <td>{{ stock.company_description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -4,40 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Visualization App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-
-        .container {
-            width: 80%;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        p {
-            font-size: 18px;
-            color: #666;
-        }
-    </style>
+    <title>Stock Data Viz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to the Stock Visualization App</h1>
+        <h1>Stock Data Viz App</h1>
         <p>Explore interactive visualizations of stock market data</p>
     </div>
+    {% block content %}{% endblock %}
 </body>
 
 </html>

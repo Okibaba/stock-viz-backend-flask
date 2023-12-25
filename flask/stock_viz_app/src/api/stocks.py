@@ -9,7 +9,7 @@ bp = Blueprint('stocks', __name__, url_prefix='/stocks')
 @bp.route('', methods=['GET'])  # decorator takes path and list of HTTP verbs
 def index():
     stocks = Stock.query.all()  # ORM performs SELECT query
-    return render_template('stock_table.html', stocks=stocks)
+    return render_template('stock_table_index.html', stocks=stocks)
     # result = []
     # for stock in stocks:
     #     # build list of stocks as dictionaries
