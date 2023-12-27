@@ -20,5 +20,5 @@ cat stock_viz.sql | docker exec -i pg_container psql
 # upgrade to using .env for db information (done)
 # create a docker compose for database , network and webapp borrow example from workshop (done)
 # re-run app with docker compose (done)
-# deploy docker app to the cloud []
+# deploy docker app to the cloud - google cloud []
 # run cloud version of app from my personal browser []
