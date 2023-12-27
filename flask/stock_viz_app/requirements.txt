@@ -8,3 +8,8 @@ SQLAlchemy==1.4.17
 Werkzeug==2.2.3
 python-dotenv
 gunicorn==20.0.4
+
+#google cloud enabling libraries
+Flask-Cloudy
+google-cloud-secret-manager
+google-auth
