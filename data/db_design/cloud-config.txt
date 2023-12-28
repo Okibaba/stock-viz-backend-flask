@@ -6,3 +6,4 @@ IMAGE=stock-viz-app
 PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUM=$(gcloud projects describe $PROJECT_ID --format 'value(projectNumber)')
 PGPASS=uTCoAIS0yiwiGYtxheWqZwVC2YR7mj
+SECRET_KEY="79QFCpjsYtFb1ClWWPQDZA4ok4U4KA89K2BcpxjEuP6TD1eTPb"

@@ -1,25 +1,26 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.10-slim
-
-EXPOSE 5000
-
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
-
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
-
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+# Use an official lightweight Python image.
+# https://hub.docker.com/_/python
+FROM python:3.9-slim
 
 WORKDIR /app
-COPY . /app
 
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-# RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-# USER appuser
+# Install dependencies.
+COPY requirements.txt .
+RUN pip install -U pip && pip install -r requirements.txt
 
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-#CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]
+# Copy local code to the container image.
+COPY . .
+
+# Service must listen to $PORT environment variable.
+# This default value facilitates local development.
+ENV PORT 5000
+
+# Setting this ensures print statements and log messages
+# promptly appear in Cloud Logging.
+ENV PYTHONUNBUFFERED TRUE
+
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 wsgi:app
