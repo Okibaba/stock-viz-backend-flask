@@ -12,3 +12,4 @@ python-dotenv
 Flask-Cloudy
 google-cloud-secret-manager
 google-auth
+python-environ

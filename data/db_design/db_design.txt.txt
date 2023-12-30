@@ -1,1 +1,2 @@
-$ cat stock_viz.sql | docker exec -i pg_container psql  -U postgres
+
+PGPASSWORD=$PGPASS psql -h $(gcloud sql instances describe $PGSERVER --format="get(ipAddresses[0].ipAddress)") -U pguser -d stock-viz < init_db.sql

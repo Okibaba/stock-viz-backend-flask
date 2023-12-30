@@ -13,3 +13,4 @@ gunicorn==20.0.4
 Flask-Cloudy
 google-cloud-secret-manager
 google-auth
+python-environ
