@@ -1,0 +1,20 @@
+REGION=us-central1
+PGSERVER=stock-viz-app-postgres
+DBNAME=stock-viz
+REPO=stock-viz-repo
+IMAGE=stock-viz-app
+PROJECT_ID=$(gcloud config get-value project)
+PROJECT_NUM=$(gcloud projects describe $PROJECT_ID --format 'value(projectNumber)')
+PGPASS=uTCoAIS0yiwiGYtxheWqZwVC2YR7mj
+IMAGE_LOCATION=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}
+SECRET_KEY="79QFCpjsYtFb1ClWWPQDZA4ok4U4KA89K2BcpxjEuP6TD1eTPb"
+
+
+
+to list Service url use command:
+gcloud run services list \
+       --platform managed
+
+
+run init_db.sql 
+gcloud sql import sql stock-viz-app-postgres gs://stock-viz-app-storage/init_db.sql --database=postgres --user=pguser
