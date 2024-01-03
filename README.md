@@ -6,9 +6,8 @@ python flask backend for a stock viz app
 # update types for table (done)
 # create apis (done)
 # global search for users and tweets and then delete (done)
-# create integrations with alembic []
 # test api with insomnia (start with post api) (done)
-# add html pages for displaying a few stocks and price on a table
+# add html pages for displaying a few stocks and price on a table (done)
 # verify post is working locally on table (done)
 # create a docker image for just flask(done)
 # run flask app using docker image(done)
