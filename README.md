@@ -2,7 +2,7 @@
 python flask backend for a stock viz app
 
 
-# to do:
+# tasks:
 # update types for table (done)
 # create apis (done)
 # global search for users and tweets and then delete (done)
