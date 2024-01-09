@@ -1,2 +1,4 @@
 tasks completed:
 -watched MLE course by Santiago (done)
+01/08/2023
+-transformers for biochemical applications
