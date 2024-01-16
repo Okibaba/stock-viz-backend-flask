@@ -14,5 +14,6 @@ python flask backend for a stock viz app
 # upgrade to using .env for db information (done)
 # create a docker compose for database , network and webapp borrow example from workshop (done)
 # re-run app with docker compose (done)
-# deploy docker app to the cloud - google cloud [done]
+# deploy docker app to the cloud - google cloud (done)
+
 

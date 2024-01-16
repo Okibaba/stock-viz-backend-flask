@@ -1,1 +1,0 @@
-$ cat stock_viz.sql | docker exec -i pg_container psql  -U postgres
